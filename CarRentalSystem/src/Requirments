@@ -1,0 +1,66 @@
+Car Rental System (LLD Preparation)
+
+Functional Requirements:
+    Reserve a car based on car type and price range.
+    Cancel a reservation.
+    Update a reservation.
+    Add new cars.
+    Update car details.
+    Process payments.
+
+Entities and Attributes:
+Car:
+    carId (Unique identifier for a car)
+    type (Sedan, SUV, etc.)
+    price (Rental cost per day)
+    licensePlate (Corrected from "slate no" → "license plate number")
+    model (Car model)
+    isAvailable (Indicates if the car is available for rent)
+
+Customer:
+    customerId (Unique identifier for a customer)
+    email
+    phone
+    name
+
+Reservation:
+    reservationId (Unique reservation identifier)
+    userId (User who made the reservation)
+    carId (Reserved car)
+    bookingDate (Date when the reservation was made)
+    returnDate (Corrected from "returningDate")
+    totalPrice (Total cost of the rental)
+    status (Active, Canceled, Completed, etc.)
+
+Payment:
+    paymentId (Unique payment identifier)
+    reservationId (Linked reservation)
+    paymentMethod (Credit Card, PayPal, etc.)
+    paymentStatus (Pending, Completed, Failed)
+
+User Actions:
+    Search for available cars
+        A user can search for cars based on car type and availability between a fromDate and toDate.
+    Book a car
+        A user provides a carId, userId, fromDate, and toDate to book a car.
+        The system updates the car’s availability status and creates a new reservation.
+    Cancel a reservation
+        A user can cancel an existing reservation.
+    Make a payment
+        A user completes payment for a reservation.
+
+Admin actions:
+    Add new car details.
+    Update car details.
+    Update reservations if needed.
+
+ Learning :
+ The synchronized (car) : ensures that only one thread can book this particular car at a time. Other cars
+  remain unlocked, meaning multiple users can reserve different cars at the same time.
+
+ method level locking : If one thread is updating a reservation, all other update requests must wait,
+ even if they are updating different reservations.
+
+ generateReservationId should not allow to generate same id at the same time so, using synchronization.
+
+
